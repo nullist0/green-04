@@ -4,14 +4,16 @@ package com.example.ksh.cardnewsapp.data;
  * Created by leepyoungwon on 17. 11. 1.
  */
 
-public class Card {
+public class Card{
     private int template;
     private String title, text;
+    private String fileDir;
 
-    public Card(int template, String title, String text){
+    public Card(int template, String title, String text, String fileDir){
         this.template = template;
         this.title = title;
         this.text = text;
+        this.fileDir = fileDir;
     }
 
     public void setTemplate(int template){
@@ -26,6 +28,10 @@ public class Card {
         this.text = text;
     }
 
+    public void setFileDir(String fileDir){
+        this.fileDir = fileDir;
+    }
+
     public int getTemplate(){
         return template;
     }
@@ -36,5 +42,9 @@ public class Card {
 
     public String getText(){
         return text;
+    }
+
+    public String getFileDir(){
+        return fileDir;
     }
 }
