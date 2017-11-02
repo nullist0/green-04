@@ -29,7 +29,14 @@ public class MainActivity extends AppCompatActivity {
         //리스트 뷰 코드
 
         // 빈 데이터 리스트 생성.
+<<<<<<< HEAD
+        final ArrayList<String> items = new ArrayList<String>() ;
+
+
+
+=======
         items = new ArrayList<String>() ;
+>>>>>>> 2fa86ed04ebb9c6ed6dff2726404ce39d6756e02
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
 
@@ -76,12 +83,6 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        }) ;
-
-
-        //액션바 코드
-
-
-        //액션바 설정하기//
 
         //액션바 타이틀 변경하기
         getSupportActionBar().setTitle("CARDNEWS");
