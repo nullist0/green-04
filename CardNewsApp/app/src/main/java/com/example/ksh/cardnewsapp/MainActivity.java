@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // 빈 데이터 리스트 생성.
         final ArrayList<String> items = new ArrayList<String>() ;
+
+
+
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
 
@@ -74,12 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                }
 //            }
 //        }) ;
-
-
-        //액션바 코드
-
-
-        //액션바 설정하기//
 
         //액션바 타이틀 변경하기
         getSupportActionBar().setTitle("CARDNEWS");

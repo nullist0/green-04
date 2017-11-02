@@ -28,7 +28,20 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
+    //ultraviewpager
     compile ('com.alibaba.android:ultraviewpager:1.0.6.1@aar') {
         transitive = true
     }
+
+    //glide
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
+
+    compile 'com.github.bumptech.glide:glide:4.3.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
+
+    //layout to image
+    compile 'com.github.vipulasri.layouttoimage:library:1.0.0'
 }
