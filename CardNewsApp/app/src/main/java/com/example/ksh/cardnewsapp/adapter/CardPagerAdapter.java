@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class CardPagerAdapter extends PagerAdapter {
 
     private ArrayList<Card> cards;
+    private ArrayList<View> views;
 
     private Context ctx;
     private LayoutInflater mLayoutInflater;
@@ -31,6 +32,8 @@ public class CardPagerAdapter extends PagerAdapter {
 
         this.ctx = c;
         this.mLayoutInflater = LayoutInflater.from(ctx);
+
+        views = new ArrayList<>();
     }
 
     @Override
@@ -54,6 +57,8 @@ public class CardPagerAdapter extends PagerAdapter {
             text.setText(c.getText());
         }
 
+        views.add(view);
+
         return view;
     }
 
@@ -64,5 +69,8 @@ public class CardPagerAdapter extends PagerAdapter {
 
     public ArrayList<Card> getCards(){
         return cards;
+    }
+    public ArrayList<View> getViews(){
+        return views;
     }
 }

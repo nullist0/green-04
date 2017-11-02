@@ -2,8 +2,10 @@ package com.example.ksh.cardnewsapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +14,10 @@ import com.example.ksh.cardnewsapp.adapter.CardPagerAdapter;
 import com.example.ksh.cardnewsapp.data.Card;
 import com.example.ksh.cardnewsapp.data.Project;
 import com.tmall.ultraviewpager.UltraViewPager;
+import com.vipul.hp_hp.library.Layout_to_Image;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -128,6 +133,45 @@ public class CardActivity extends Activity implements View.OnClickListener{
 
     public void requestShare(){
         requestSave();
-        
+
+        Intent share = new Intent();
+        share.setAction(Intent.ACTION_SEND_MULTIPLE);
+        share.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.");
+        share.setType("image/bmp");
+
+        ArrayList<Uri> files = new ArrayList<Uri>();
+
+        for(int i = 0; i < project.getCards().size(); i++){
+            Layout_to_Image lti =
+                    new Layout_to_Image(this, cpa_main.getViews().get(i));
+            files.add(saveBitmap(lti.convert_layout(), i));
+        }
+
+        share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+        startActivity(share);
+    }
+
+    private Uri saveBitmap(Bitmap bitmap, int i){
+        String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/" + project.getProjectName();
+        File dir = new File(file_path);
+        if(!dir.exists())
+            dir.mkdirs();
+        File file = new File(dir, i+".png");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (fos != null){
+                try {
+                    fos.flush();
+                    fos.close();
+                }catch (Exception e1){}
+            }
+        }
+        return Uri.fromFile(file);
     }
 }
