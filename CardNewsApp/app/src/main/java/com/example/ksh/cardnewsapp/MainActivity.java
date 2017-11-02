@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,7 +16,10 @@ import static com.example.ksh.cardnewsapp.R.id.add;
 import static com.example.ksh.cardnewsapp.R.id.delete;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
+    public ArrayList<String> items;
+    public ArrayAdapter adapter;
+    public ListView mainlistview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +29,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //리스트 뷰 코드
 
         // 빈 데이터 리스트 생성.
-        final ArrayList<String> items = new ArrayList<String>() ;
+        items = new ArrayList<String>() ;
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
 
         // listview 생성 및 adapter 지정.
-        final ListView listview = (ListView) findViewById(R.id.mainlistview) ;
-        listview.setAdapter(adapter) ;
+        mainlistview = (ListView) findViewById(R.id.mainlistview) ;
+        mainlistview.setAdapter(adapter) ;
 
 //        // add button에 대한 이벤트 처리.
 //        Button addButton = (Button)findViewById(R.id.add) ;
@@ -111,11 +113,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == add) {
             Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
-
+            addProject();
             return true;
         }
         if (id == delete) {
             Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
+            deleteProject();
             return true;
         }
         if (id == R.id.menu1) {
@@ -137,9 +140,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.hide();
     }
 
+    public void addProject() {
+        int count;
+        count = adapter.getCount();
 
-    @Override
-    public void onClick(View view) {
+        // 아이템 추가.
+        items.add("LIST" + Integer.toString(count + 1));
 
+        // listview 갱신
+        adapter.notifyDataSetChanged();
     }
+
+    public void deleteProject() {
+        int count, checked;
+        count = adapter.getCount();
+
+        if (count > 0) {
+            // 현재 선택된 아이템의 position 획득.
+            checked = mainlistview.getCheckedItemPosition();
+
+            if (checked > -1 && checked < count) {
+                // 아이템 삭제
+                items.remove(checked);
+
+                // listview 선택 초기화.
+                mainlistview.clearChoices();
+
+                // listview 갱신.
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+//    @Override
+//    public void onClick(View view) {
+//
+//    }
 }
