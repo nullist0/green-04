@@ -2,10 +2,13 @@ package com.example.ksh.cardnewsapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import com.example.ksh.cardnewsapp.data.Card;
 import com.example.ksh.cardnewsapp.data.Project;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.vipul.hp_hp.library.Layout_to_Image;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,8 +30,11 @@ import java.util.ArrayList;
 
 public class CardActivity extends Activity implements View.OnClickListener{
 
+    private static final int REQUEST_PICK_PICTURE = 444;
+
     private CardPagerAdapter cpa_main;
     private UltraViewPager uvp_main;
+    private PagerListener pl_main;
 
     private Button bt_image, bt_text, bt_temp;
     private View view_text, view_temp;
@@ -49,6 +56,7 @@ public class CardActivity extends Activity implements View.OnClickListener{
 
         //initialize view variables
         uvp_main = (UltraViewPager) findViewById(R.id.card_uvp_main);
+        pl_main = new PagerListener();
 
         bt_image = (Button) findViewById(R.id.card_bt_image);
         bt_text = (Button) findViewById(R.id.card_bt_text);
@@ -61,6 +69,7 @@ public class CardActivity extends Activity implements View.OnClickListener{
     private void initView(){
         //Setting uvp_main
         uvp_main.setAdapter(cpa_main);
+        uvp_main.setOnPageChangeListener(pl_main);
 
         //uvp_main.initIndicator();
 
@@ -75,17 +84,29 @@ public class CardActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        //TODO
-
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+            if (requestCode == UCrop.REQUEST_CROP) {
+                Uri resultUri = UCrop.getOutput(data);
+                //TODO SOME?
+            }
+            else if(requestCode == REQUEST_PICK_PICTURE){
+                if(data != null)
+                    requestCrop(data.getData());
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+        }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cm_delete:
+                deleteCard();
                 return true;
             case R.id.cm_add:
+                addCard();
                 return true;
             case R.id.cm_save:
                 requestSave();
@@ -110,34 +131,43 @@ public class CardActivity extends Activity implements View.OnClickListener{
             case R.id.card_bt_template:
                 requestTemplate();
                 break;
-
         }
     }
 
-    public void requestImage(){
+    private void deleteCard(){
+        cpa_main.getCards().remove(pl_main.getPosition());
+        cpa_main.notifyDataSetChanged();
+    }
+
+    private void addCard(){
+        cpa_main.getCards().add(new Card(0, "", "", ""));
+        cpa_main.notifyDataSetChanged();
+    }
+
+    private void requestImage(){
+        requestPick();
+    }
+
+    private void requestText(){
 
     }
 
-    public void requestText(){
+    private void requestTemplate(){
 
     }
 
-    public void requestTemplate(){
-
-    }
-
-    public void requestSave(){
+    private void requestSave(){
         project.setCards(cpa_main.getCards());
         //...TODO
     }
 
-    public void requestShare(){
+    private void requestShare(){
         requestSave();
 
         Intent share = new Intent();
         share.setAction(Intent.ACTION_SEND_MULTIPLE);
         share.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.");
-        share.setType("image/bmp");
+        share.setType("image/png");
 
         ArrayList<Uri> files = new ArrayList<Uri>();
 
@@ -151,9 +181,33 @@ public class CardActivity extends Activity implements View.OnClickListener{
         startActivity(share);
     }
 
+    private void requestPick(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_PICK_PICTURE);
+    }
+
+    private void requestCrop(Uri uri){
+
+        String destinationFileName = "image"+pl_main.getPosition();
+
+        UCrop uCrop = UCrop.of(uri,
+                Uri.fromFile(
+                        new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/" + project.getProjectName() + "/images", destinationFileName)));
+
+//        uCrop = basisConfig(uCrop);
+//        uCrop = advancedConfig(uCrop);
+        uCrop = uCrop.withAspectRatio(1, 1);
+
+        uCrop.start(CardActivity.this);
+    }
+
     private Uri saveBitmap(Bitmap bitmap, int i){
         String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/" + project.getProjectName();
+                "/" + project.getProjectName() + "/cards";
         File dir = new File(file_path);
         if(!dir.exists())
             dir.mkdirs();
@@ -173,5 +227,29 @@ public class CardActivity extends Activity implements View.OnClickListener{
             }
         }
         return Uri.fromFile(file);
+    }
+
+    private class PagerListener implements ViewPager.OnPageChangeListener{
+
+        private int position = 0;
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+
+        public int getPosition(){
+            return position;
+        }
     }
 }
