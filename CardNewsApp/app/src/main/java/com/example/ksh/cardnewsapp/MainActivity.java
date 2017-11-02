@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,15 +17,12 @@ import static com.example.ksh.cardnewsapp.R.id.add;
 import static com.example.ksh.cardnewsapp.R.id.delete;
 
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //리스트 뷰 코드
 
@@ -36,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) findViewById(R.id.mainlistview) ;
         listview.setAdapter(adapter) ;
-
-
-
 
 //        // add button에 대한 이벤트 처리.
 //        Button addButton = (Button)findViewById(R.id.add) ;
@@ -97,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
         //hideActionBar();
     }
 
-
-
-
-
-
     //액션버튼 메뉴 액션바에 집어 넣기
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,5 +138,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
 
+    }
 }
