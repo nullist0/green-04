@@ -2,7 +2,7 @@
 -----
 This repository is a OpenSource SW Basic project.
 
-Feature
+## Feature
 - Saving/Loading CardNews data.
 - Making CardNews.
 - Sharing CardNews.
