@@ -2,6 +2,7 @@ package com.example.ksh.cardnewsapp.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
  * Created by leepyoungwon on 17. 11. 1.
  */
 
-public class CardPagerAdapter extends PagerAdapter {
+public class CardPagerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener{
+
+    private int currentPosition = 0;
 
     private ArrayList<Card> cards;
     private ArrayList<View> views;
@@ -72,5 +75,33 @@ public class CardPagerAdapter extends PagerAdapter {
     }
     public ArrayList<View> getViews(){
         return views;
+    }
+
+    public int getCurrentPosition(){
+        return currentPosition;
+    }
+    public Card getCurrentCard(){
+        return cards.get(currentPosition);
+    }
+    public void addCard(){
+        cards.add(currentPosition, new Card(0, "", "", ""));
+    }
+    public void removeCard(){
+        cards.remove(currentPosition);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        currentPosition = position;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

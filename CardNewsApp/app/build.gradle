@@ -44,4 +44,7 @@ dependencies {
 
     //layout to image : Apache 2.0.
     compile 'com.github.vipulasri.layouttoimage:library:1.0.0'
+
+    //uCrop : Apache 2.0.
+    compile 'com.github.yalantis:ucrop:2.2.1'
 }
