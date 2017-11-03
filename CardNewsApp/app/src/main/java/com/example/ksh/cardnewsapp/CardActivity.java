@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by leepyoungwon on 17. 11. 1.
  */
 
-public class CardActivity extends Activity implements View.OnClickListener{
+public class CardActivity extends BaseActivity implements View.OnClickListener{
 
     private static final int REQUEST_PICK_PICTURE = 444;
 
@@ -208,7 +208,7 @@ public class CardActivity extends Activity implements View.OnClickListener{
 
     private void requestSave(){
         project.setCards(cpa_main.getCards());
-        //...TODO
+        saveProject(project);
     }
 
     private void requestShare(){

@@ -47,4 +47,8 @@ dependencies {
 
     //uCrop : Apache 2.0.
     compile 'com.github.yalantis:ucrop:2.2.1'
+
+    //fastjson : Apache 2.0.
+    compile 'com.alibaba:fastjson:1.2.39'
+
 }
