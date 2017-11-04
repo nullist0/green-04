@@ -43,28 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 권한을 획득하기전에 현재 Acivity에서 지정된 권한을 사용할 수 있는지 여부 체크
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // 권한 획득에 대한 설명 보여주기
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // 사용자에게 권한 획득에 대한 설명을 보여준 후 권한 요청을 수행
-
-            } else {
-
-                // 권한 획득의 필요성을 설명할 필요가 없을 때는 아래 코드를
-                //수행해서 권한 획득 여부를 요청한다.
-
-                ActivityCompat.requestPermissions(this,
-                        PERMISSIONS_STORAGE,
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-            }
-        }
+        //권한 체크(permission check)
 
         // 권한을 획득하기전에 현재 Acivity에서 지정된 권한을 사용할 수 있는지 여부 체크
         if (ContextCompat.checkSelfPermission(this,
@@ -88,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-
-
-        출처: http://appsnuri.tistory.com/128 [이야기앱 세상]
 
         //리스트 뷰 코드
 
