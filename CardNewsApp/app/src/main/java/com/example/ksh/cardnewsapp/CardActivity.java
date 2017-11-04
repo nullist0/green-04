@@ -54,6 +54,10 @@ public class CardActivity extends Activity implements View.OnClickListener{
 
         initVar();
         initView();
+
+        //from MainActivity
+        Intent intent = getIntent();
+        String news_name = intent.getExtras().getString("news_name");
     }
 
     private void initVar(){
