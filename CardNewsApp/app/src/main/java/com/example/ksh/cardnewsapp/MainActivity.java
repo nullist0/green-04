@@ -1,9 +1,13 @@
 package com.example.ksh.cardnewsapp;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +31,66 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter adapter;
     public ListView mainlistview;
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    }; //출처: http://appsnuri.tistory.com/128 [이야기앱 세상] - 출처o, 변경o, 상업적사용x
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 권한을 획득하기전에 현재 Acivity에서 지정된 권한을 사용할 수 있는지 여부 체크
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // 권한 획득에 대한 설명 보여주기
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // 사용자에게 권한 획득에 대한 설명을 보여준 후 권한 요청을 수행
+
+            } else {
+
+                // 권한 획득의 필요성을 설명할 필요가 없을 때는 아래 코드를
+                //수행해서 권한 획득 여부를 요청한다.
+
+                ActivityCompat.requestPermissions(this,
+                        PERMISSIONS_STORAGE,
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+            }
+        }
+
+        // 권한을 획득하기전에 현재 Acivity에서 지정된 권한을 사용할 수 있는지 여부 체크
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // 권한 획득에 대한 설명 보여주기
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // 사용자에게 권한 획득에 대한 설명을 보여준 후 권한 요청을 수행
+
+            } else {
+
+                // 권한 획득의 필요성을 설명할 필요가 없을 때는 아래 코드를
+                //수행해서 권한 획득 여부를 요청한다.
+
+                ActivityCompat.requestPermissions(this,
+                        PERMISSIONS_STORAGE,
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+            }
+        }
+
+
+        출처: http://appsnuri.tistory.com/128 [이야기앱 세상]
 
         //리스트 뷰 코드
 
@@ -134,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         alert.setView(name);
-
+        //팝업창 클릭버튼
         alert.setPositiveButton("결정", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String newsname = name.getText().toString();
@@ -149,9 +208,8 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
+        //팝업창 보이기
         alert.show();
-
 //        // 아이템 추가.
 //        items.add(String.valueOf(name.getText()));
 //
@@ -176,6 +234,28 @@ public class MainActivity extends AppCompatActivity {
 
                 // listview 갱신.
                 adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                //권한 획득이 거부되면 결과 배열은 비어있게 됨
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //권한 획득이 허용되면 수행해야 할 작업이 표시됨
+                    //일반적으로 작업을 처리할 메서드를 호출
+
+                } else {
+
+                    //권한 획득이 거부되면 수행해야 할 적업이 표시됨
+                    //일반적으로 작업을 처리할 메서드를 호출
+                }
+                return;
             }
         }
     }
