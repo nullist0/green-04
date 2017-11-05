@@ -1,6 +1,8 @@
 package com.example.ksh.cardnewsapp.adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -12,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.example.ksh.cardnewsapp.R;
 import com.example.ksh.cardnewsapp.data.Card;
 
@@ -24,6 +29,7 @@ public class CardPagerAdapter extends PagerAdapter{
 
     private Context ctx;
     private LayoutInflater mLayoutInflater;
+    private RequestOptions ro = new RequestOptions();
 
     public CardPagerAdapter(Context c, ArrayList<Card> cards){
 
@@ -31,6 +37,9 @@ public class CardPagerAdapter extends PagerAdapter{
 
         this.ctx = c;
         this.mLayoutInflater = LayoutInflater.from(ctx);
+
+        ro.diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true);
     }
 
     @Override
@@ -88,9 +97,14 @@ public class CardPagerAdapter extends PagerAdapter{
 
         File file = new File(c.getFileDir());
         if(file.exists())
-            Glide.with(view).load(new File(c.getFileDir())).into(image);
+            Glide.with(view)
+                    .applyDefaultRequestOptions(ro)
+                    .load(new File(c.getFileDir()))
+                    .into(image);
         else
-            Glide.with(view).load(R.drawable.white_square).into(image);
+            Glide.with(view)
+                    .load(R.drawable.white_square)
+                    .into(image);
         title.setText(c.getTitle());
         text.setText(c.getText());
 
