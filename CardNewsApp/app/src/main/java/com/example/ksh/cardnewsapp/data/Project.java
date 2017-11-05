@@ -11,8 +11,13 @@ public class Project implements Serializable{
     private String projectName;
     private ArrayList<Card> cards;
 
+    public Project(){
+
+    }
+
     public Project(String projectName){
         this.projectName = projectName;
+        this.cards = new ArrayList<>();
     }
 
     public void setProjectName(String projectName){
