@@ -42,9 +42,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
 
-    //layout to image : Apache 2.0.
-    compile 'com.github.vipulasri.layouttoimage:library:1.0.0'
-
     //uCrop : Apache 2.0.
     compile 'com.github.yalantis:ucrop:2.2.1'
 

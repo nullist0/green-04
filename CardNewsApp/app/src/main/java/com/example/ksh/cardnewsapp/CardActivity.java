@@ -1,11 +1,12 @@
 package com.example.ksh.cardnewsapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v4.content.FileProvider;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,29 +14,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.ksh.cardnewsapp.adapter.CardPagerAdapter;
 import com.example.ksh.cardnewsapp.data.Card;
 import com.example.ksh.cardnewsapp.data.Project;
 import com.tmall.ultraviewpager.UltraViewPager;
-import com.vipul.hp_hp.library.Layout_to_Image;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-/**
- * Created by leepyoungwon on 17. 11. 1.
- */
-
-public class CardActivity extends BaseActivity implements View.OnClickListener{
+public class CardActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
     private static final int REQUEST_PICK_PICTURE = 444;
 
     private CardPagerAdapter cpa_main;
     private UltraViewPager uvp_main;
 
+    private TextView tv_order;
     private Button bt_image, bt_text, bt_temp;
     private LinearLayout ll_text, ll_temp;
 
@@ -49,6 +47,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
     private Project project;
 
+    private int position = 0;
+
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
@@ -56,10 +56,6 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         initVar();
         initView();
-
-        //from MainActivity
-        Intent intent = getIntent();
-        String news_name = intent.getExtras().getString("news_name");
     }
 
     private void initVar(){
@@ -68,6 +64,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         //initialize view variables
         uvp_main = findViewById(R.id.card_uvp_main);
+
+        tv_order = findViewById(R.id.card_tv_order);
 
         bt_image = findViewById(R.id.card_bt_image);
         bt_text = findViewById(R.id.card_bt_text);
@@ -91,6 +89,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     private void initView(){
         //Setting uvp_main
         uvp_main.setAdapter(cpa_main);
+        uvp_main.setOnPageChangeListener(this);
 
         //uvp_main.initIndicator();
 
@@ -98,6 +97,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
         uvp_main.setItemRatio(1.0f);//the aspect ratio of child view equals to 1.0f
         uvp_main.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
         uvp_main.setAutoMeasureHeight(true);
+
+        //initialize text
+        tv_order.setText((position+1)+ "번째 카드");
 
         //initialize buttons
         bt_image.setOnClickListener(this);
@@ -113,13 +115,12 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode == RESULT_OK){
             if (requestCode == UCrop.REQUEST_CROP) {
                 Uri resultUri = UCrop.getOutput(data);
 
-                //TODO SOME?
-                cpa_main.getCurrentCard().setFileDir("");
+                cpa_main.getCard(position).setFileDir(resultUri.getPath());
                 cpa_main.notifyDataSetChanged();
             }
             else if(requestCode == REQUEST_PICK_PICTURE){
@@ -128,6 +129,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
+            cropError.printStackTrace();
         }
     }
 
@@ -152,6 +154,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
                 return true;
             case R.id.cm_share:
                 requestShare();
+                finish();
                 return true;
         }
         return false;
@@ -177,19 +180,19 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
                 closeTemplateControl();
                 break;
             case R.id.card_bt_temp1:
-                cpa_main.getCurrentCard().setTemplate(0);
+                cpa_main.getCard(position).setTemplate(0);
                 cpa_main.notifyDataSetChanged(); //TODO
                 break;
         }
     }
 
     private void deleteCard(){
-        cpa_main.removeCard();
+        cpa_main.removeCard(position);
         cpa_main.notifyDataSetChanged();
     }
 
     private void addCard(){
-        cpa_main.addCard();
+        cpa_main.addCard(position);
         cpa_main.notifyDataSetChanged();
     }
 
@@ -200,8 +203,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     private void openTextControl(){
         ll_text.setVisibility(View.VISIBLE);
 
-        et_title.setText(cpa_main.getCurrentCard().getTitle());
-        et_text.setText(cpa_main.getCurrentCard().getText());
+        et_title.setText(cpa_main.getCard(position).getTitle());
+        et_text.setText(cpa_main.getCard(position).getText());
     }
 
     private void openTemplateControl(){
@@ -211,16 +214,19 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     private void closeTextControl() {
         ll_text.setVisibility(View.GONE);
 
-        Card c = cpa_main.getCurrentCard();
+        Card c = cpa_main.getCards().get(position);
         c.setTitle(et_title.getText().toString());
         c.setText(et_text.getText().toString());
 
         et_title.setText("");
         et_text.setText("");
+
+        cpa_main.notifyDataSetChanged();
     }
 
     private void closeTemplateControl(){
         ll_temp.setVisibility(View.GONE);
+        cpa_main.notifyDataSetChanged();
     }
 
     private void requestSave(){
@@ -233,15 +239,16 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         Intent share = new Intent();
         share.setAction(Intent.ACTION_SEND_MULTIPLE);
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         share.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.");
         share.setType("image/png");
 
-        ArrayList<Uri> files = new ArrayList<Uri>();
+        ArrayList<Uri> files = new ArrayList<>();
 
         for(int i = 0; i < project.getCards().size(); i++){
-            Layout_to_Image lti =
-                    new Layout_to_Image(this, cpa_main.getViews().get(i));
-            files.add(saveBitmap(lti.convert_layout(), i));
+            View v = cpa_main.getView(i);
+            //Layout_to_Image lti = new Layout_to_Image(this, v);
+            files.add(saveBitmap(loadBitmapFromView(v), i));
         }
 
         share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
@@ -253,17 +260,19 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_PICK_PICTURE);
     }
 
     private void requestCrop(Uri uri){
 
-        String destinationFileName = "image"+cpa_main.getCurrentPosition();
+        String destinationFileName = "image"+position;
 
-        UCrop uCrop = UCrop.of(uri,
-                Uri.fromFile(
-                        new File(getFilesDir().getAbsolutePath()
-                                + "/" + project.getProjectName() + "/images", destinationFileName)));
+        File dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/" + project.getProjectName() + "/images");
+        if(!dir.exists())
+            dir.mkdir();
+
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(dir, destinationFileName)));
 
 //        uCrop = basisConfig(uCrop);
 //        uCrop = advancedConfig(uCrop);
@@ -294,7 +303,34 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
                 }catch (Exception e1){}
             }
         }
-        return Uri.fromFile(file);
+
+        return FileProvider.getUriForFile(this,
+                this.getApplicationContext().getPackageName()
+                        + ".my.package.name.provider", file);
     }
 
+    private Bitmap loadBitmapFromView(View v){
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(b);
+        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
+        v.draw(c);
+        return b;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        this.position = position;
+        tv_order.setText((position+1)+"번째 카드");
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

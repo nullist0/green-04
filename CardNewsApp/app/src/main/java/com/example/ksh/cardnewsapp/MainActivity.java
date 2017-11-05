@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -154,6 +155,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 items.add(String.valueOf(name.getText()));
                 projects.add(new Project(name.getText().toString()));
 
+                saveProjects();
+
                 // listview 갱신
                 adapter.notifyDataSetChanged();
             }
@@ -188,11 +191,15 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_CONTACTS:
-                //권한 획득이 거부되면 결과 배열은 비어있게 됨
-                if (grantResults.length == 0) {
+                Log.d(TAG, grantResults.length+"");
+                if (grantResults.length == 0 ||
+                        (grantResults[0] == PackageManager.PERMISSION_DENIED ||
+                        grantResults[1] == PackageManager.PERMISSION_DENIED)) {
                     Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                    this.finish();
+                }else if(grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED)
+                    Log.d(TAG, "Granted");
                 break;
         }
     }
@@ -209,5 +216,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         super.onStop();
         loadProjects();
         saveProjects();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        loadProjects();
     }
 }
