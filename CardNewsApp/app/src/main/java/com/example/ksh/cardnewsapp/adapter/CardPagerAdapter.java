@@ -3,6 +3,7 @@ package com.example.ksh.cardnewsapp.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 public class CardPagerAdapter extends PagerAdapter{
     private ArrayList<Card> cards;
+    private ArrayList<View> views = new ArrayList<>();
 
     private Context ctx;
     private LayoutInflater mLayoutInflater;
@@ -38,8 +40,9 @@ public class CardPagerAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position){
-        RelativeLayout view  = getView(position);
+        RelativeLayout view = getViewFromLayout(position);
         container.addView(view);
+        views.add(view);
 
         return view;
     }
@@ -70,7 +73,11 @@ public class CardPagerAdapter extends PagerAdapter{
     public ArrayList<Card> getCards(){
         return cards;
     }
-    public RelativeLayout getView(int position){
+    public View getView(int position){
+        return views.get(position);
+    }
+
+    private RelativeLayout getViewFromLayout(int position){
 
         RelativeLayout view = (RelativeLayout) mLayoutInflater.inflate(R.layout.view_card, null);
 
@@ -94,5 +101,11 @@ public class CardPagerAdapter extends PagerAdapter{
     public void destroyItem(ViewGroup container, int position, Object object) {
         RelativeLayout view = (RelativeLayout) object;
         container.removeView(view);
+    }
+
+    @Override
+    public void notifyDataSetChanged(){
+        super.notifyDataSetChanged();
+        Log.d("CPA TAG", "CHANGE CALLED");
     }
 }

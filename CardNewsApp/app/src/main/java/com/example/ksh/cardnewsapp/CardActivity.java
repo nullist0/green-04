@@ -1,10 +1,14 @@
 package com.example.ksh.cardnewsapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -24,6 +28,7 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CardActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
@@ -119,13 +124,16 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         if (resultCode == RESULT_OK){
             if (requestCode == UCrop.REQUEST_CROP) {
                 Uri resultUri = UCrop.getOutput(data);
-
-                cpa_main.getCard(position).setFileDir(resultUri.getPath());
-                cpa_main.notifyDataSetChanged();
+                if(resultUri != null) {
+                    cpa_main.getCard(position).setFileDir(resultUri.getPath());
+                    cpa_main.notifyDataSetChanged();
+                }
             }
             else if(requestCode == REQUEST_PICK_PICTURE){
-                if(data != null)
+                if(data.getData() != null) {
+                    Log.d(TAG, data.getData().getPath());
                     requestCrop(data.getData());
+                }
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
@@ -248,6 +256,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         for(int i = 0; i < project.getCards().size(); i++){
             View v = cpa_main.getView(i);
             //Layout_to_Image lti = new Layout_to_Image(this, v);
+            Log.d(TAG, i+" : "+v.getHeight() +"x" + v.getWidth());
             files.add(saveBitmap(loadBitmapFromView(v), i));
         }
 
@@ -260,8 +269,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_PICK_PICTURE);
+        startActivityForResult(Intent.createChooser(intent, "Choose Image"), REQUEST_PICK_PICTURE);
     }
 
     private void requestCrop(Uri uri){
