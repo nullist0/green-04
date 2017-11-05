@@ -3,7 +3,9 @@ package com.example.ksh.cardnewsapp;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.Preference;
+import android.support.v7.app.AppCompatActivity;
 import android.util.ArraySet;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.example.ksh.cardnewsapp.data.Project;
@@ -17,10 +19,14 @@ import java.util.Set;
  * Created by leepyoungwon on 17. 11. 3.
  */
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
+
+    protected static final String TAG = "CardNewsDEBUG";
+    protected static final String INTENT_DATA = "data";
 
     private static final String SP_NAME = "projects";
     private static final String SP_PROJECTNAMESET = "names";
+
     protected ArrayList<Project> projects;
 
     protected void loadProjects(){
@@ -33,8 +39,10 @@ public class BaseActivity extends Activity {
             while(iter.hasNext()){
                 String s = iter.next();
                 String json = sp.getString(s, null);
-                if(json != null)
+                if(json != null) {
                     projects.add(JSON.parseObject(json, Project.class));
+                    Log.d(TAG, json);
+                }
             }
         }
     }
@@ -62,5 +70,4 @@ public class BaseActivity extends Activity {
 
         editor.apply();
     }
-
 }

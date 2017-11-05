@@ -8,40 +8,72 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.ksh.cardnewsapp.data.Project;
+
 import java.util.ArrayList;
 
-import static com.example.ksh.cardnewsapp.R.id.add;
-import static com.example.ksh.cardnewsapp.R.id.delete;
-
-
-public class MainActivity extends AppCompatActivity {
-    public ArrayList<String> items;
-    public ArrayAdapter adapter;
-    public ListView mainlistview;
+public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener{
+    private ArrayList<String> items;
+    private ArrayAdapter adapter;
+    private ListView lv_main;
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-    }; //출처: http://appsnuri.tistory.com/128 [이야기앱 세상] - 출처o, 변경o, 상업적사용x
-
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //액션바 코드
+        //액션바 타이틀 변경하기
+        getSupportActionBar().setTitle(R.string.app_name);
+        //액션바 배경색 변경
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
+        //홈버튼 표시
+        //getActionBar().setDisplayHomeAsUpEnabled(false);
+
         setContentView(R.layout.activity_main);
+
+        permissionCheck();
+
+        initVar();
+        initView();
+    }//End of onCreate
+
+    private void initVar(){
+        loadProjects();
+        items = new ArrayList<>();
+
+        for(Project p : projects)
+            items.add(p.getProjectName());
+
+        // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, items);
+
+        // listview 생성 및 adapter 지정.
+        lv_main = findViewById(R.id.mainlistview);
+
+    }
+
+    private void initView(){
+        lv_main.setAdapter(adapter);
+        lv_main.setOnItemClickListener(this);
+    }
+
+    private void permissionCheck(){
 
         //권한 체크(permission check)
 
@@ -49,53 +81,11 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-
-            // 권한 획득에 대한 설명 보여주기
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // 사용자에게 권한 획득에 대한 설명을 보여준 후 권한 요청을 수행
-
-            } else {
-
-                // 권한 획득의 필요성을 설명할 필요가 없을 때는 아래 코드를
-                //수행해서 권한 획득 여부를 요청한다.
-
-                ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(this,
                         PERMISSIONS_STORAGE,
                         MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-            }
         }
-
-        //리스트 뷰 코드
-
-        // 빈 데이터 리스트 생성.
-        items = new ArrayList<String>();
-        // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items);
-
-        // listview 생성 및 adapter 지정.
-        mainlistview = (ListView) findViewById(R.id.mainlistview);
-        mainlistview.setAdapter(adapter);
-
-        //리스트 뷰 코드 끝
-
-
-        //액션바 코드
-
-        //액션바 타이틀 변경하기
-        getSupportActionBar().setTitle("CARDNEWS");
-        //액션바 배경색 변경
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
-        //홈버튼 표시
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        //액션바 숨기기
-        //hideActionBar();
-
-        //액션바 코드 끝
-    }//End of onCreate
+    }
 
     //액션버튼 메뉴 액션바에 집어 넣기
     @Override
@@ -108,44 +98,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-//        //or switch문을 이용하면 될듯 하다.
-//        if (id == android.R.id.home) {
-//            Toast.makeText(this, "홈아이콘 클릭", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
 
-        if (id == add) {
-            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
+        if (id == R.id.add) {
+//            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
             addProject();
             return true;
         }
-        if (id == delete) {
-            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.delete) {
+//            Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
             deleteProject();
             return true;
         }
-        if (id == R.id.menu1) {
-            Toast.makeText(this, "개발자 정보 클릭", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.menu1) {
+//            Toast.makeText(this, "개발자 정보 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DeveloperActivity.class);
             startActivity(intent);
             return true;
         }
-        if (id == R.id.menu2) {
-            Toast.makeText(this, "라이센스 정보 클릭", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.menu2) {
+//            Toast.makeText(this, "라이센스 정보 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, LicenseActivity.class);
             startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    //액션바 숨기기
-    private void hideActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.hide();
     }
 
     public void addProject() {
@@ -160,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         name.setOnKeyListener(new EditText.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == event.KEYCODE_ENTER)
+                if(keyCode == KeyEvent.KEYCODE_ENTER)
                 {
                     return true;
                 }
@@ -172,13 +149,10 @@ public class MainActivity extends AppCompatActivity {
         //팝업창 클릭버튼
         alert.setPositiveButton("결정", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String newsname = name.getText().toString();
-                Intent intent = new Intent(MainActivity.this,CardActivity.class);
-                intent.putExtra("news_name", newsname);
-                startActivity(intent);
 
                 // 아이템 추가.
                 items.add(String.valueOf(name.getText()));
+                projects.add(new Project(name.getText().toString()));
 
                 // listview 갱신
                 adapter.notifyDataSetChanged();
@@ -186,11 +160,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //팝업창 보이기
         alert.show();
-//        // 아이템 추가.
-//        items.add(String.valueOf(name.getText()));
-//
-//        // listview 갱신
-//        adapter.notifyDataSetChanged();
     }
 
     public void deleteProject() {
@@ -199,14 +168,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (count > 0) {
             // 현재 선택된 아이템의 position 획득.
-            checked = mainlistview.getCheckedItemPosition();
+            checked = lv_main.getCheckedItemPosition();
 
             if (checked > -1 && checked < count) {
                 // 아이템 삭제
+                projects.remove(checked);
                 items.remove(checked);
 
                 // listview 선택 초기화.
-                mainlistview.clearChoices();
+                lv_main.clearChoices();
 
                 // listview 갱신.
                 adapter.notifyDataSetChanged();
@@ -215,24 +185,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS:
                 //권한 획득이 거부되면 결과 배열은 비어있게 됨
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //권한 획득이 허용되면 수행해야 할 작업이 표시됨
-                    //일반적으로 작업을 처리할 메서드를 호출
-
-                } else {
-
-                    //권한 획득이 거부되면 수행해야 할 적업이 표시됨
-                    //일반적으로 작업을 처리할 메서드를 호출
+                if (grantResults.length == 0) {
+                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-                return;
-            }
+                break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Intent intent = new Intent(MainActivity.this,CardActivity.class);
+        intent.putExtra(INTENT_DATA, projects.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        loadProjects();
+        saveProjects();
     }
 }

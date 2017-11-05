@@ -1,13 +1,19 @@
 package com.example.ksh.cardnewsapp.data;
 
+import java.io.Serializable;
+
 /**
  * Created by leepyoungwon on 17. 11. 1.
  */
 
-public class Card{
+public class Card implements Serializable{
     private int template;
     private String title, text;
     private String fileDir;
+
+    public Card(){
+
+    }
 
     public Card(int template, String title, String text, String fileDir){
         this.template = template;

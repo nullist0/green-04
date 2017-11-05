@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +64,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
     private void initVar(){
         //initialize from intent
-        project = (Project) getIntent().getSerializableExtra("data");
+        project = (Project) getIntent().getSerializableExtra(INTENT_DATA);
 
         //initialize view variables
         uvp_main = findViewById(R.id.card_uvp_main);
@@ -83,7 +85,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
         bt_confirm_text = findViewById(R.id.card_bt_confirm_text);
 
         //initialize adapter
-        cpa_main = new CardPagerAdapter(getApplicationContext(), new ArrayList<Card>());
+        cpa_main = new CardPagerAdapter(getApplicationContext(), project.getCards());
     }
 
     private void initView(){
@@ -94,7 +96,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         uvp_main.setMultiScreen(1.0f);//single screen
         uvp_main.setItemRatio(1.0f);//the aspect ratio of child view equals to 1.0f
-        uvp_main.setAutoMeasureHeight(false);
+        uvp_main.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+        uvp_main.setAutoMeasureHeight(true);
 
         //initialize buttons
         bt_image.setOnClickListener(this);
@@ -105,6 +108,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         bt_confirm_text.setOnClickListener(this);
         bt_confirm_temp.setOnClickListener(this);
+
+        getSupportActionBar().setTitle(project.getProjectName());
     }
 
     @Override
@@ -114,7 +119,8 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
                 Uri resultUri = UCrop.getOutput(data);
 
                 //TODO SOME?
-                cpa_main.getCurrentCard().setFileDir(resultUri.getPath());
+                cpa_main.getCurrentCard().setFileDir("");
+                cpa_main.notifyDataSetChanged();
             }
             else if(requestCode == REQUEST_PICK_PICTURE){
                 if(data != null)
@@ -123,6 +129,13 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
         }
+    }
+
+    //액션버튼 메뉴 액션바에 집어 넣기
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.card_menu, menu);
+        return true;
     }
 
     @Override
@@ -157,10 +170,10 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
             case R.id.card_bt_template:
                 openTemplateControl();
                 break;
-            case R.id.card_bt_confirm_temp:
+            case R.id.card_bt_confirm_text :
                 closeTextControl();
                 break;
-            case R.id.card_bt_confirm_text:
+            case R.id.card_bt_confirm_temp:
                 closeTemplateControl();
                 break;
             case R.id.card_bt_temp1:
@@ -196,7 +209,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void closeTextControl() {
-        ll_text.setVisibility(View.INVISIBLE);
+        ll_text.setVisibility(View.GONE);
 
         Card c = cpa_main.getCurrentCard();
         c.setTitle(et_title.getText().toString());
@@ -207,7 +220,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void closeTemplateControl(){
-        ll_temp.setVisibility(View.INVISIBLE);
+        ll_temp.setVisibility(View.GONE);
     }
 
     private void requestSave(){
@@ -249,7 +262,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
 
         UCrop uCrop = UCrop.of(uri,
                 Uri.fromFile(
-                        new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                        new File(getFilesDir().getAbsolutePath()
                                 + "/" + project.getProjectName() + "/images", destinationFileName)));
 
 //        uCrop = basisConfig(uCrop);
@@ -260,8 +273,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private Uri saveBitmap(Bitmap bitmap, int i){
-        String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
+        String file_path = getExternalFilesDir(null).getAbsolutePath() +
                 "/" + project.getProjectName() + "/cards";
+        Log.d(TAG, file_path);
         File dir = new File(file_path);
         if(!dir.exists())
             dir.mkdirs();

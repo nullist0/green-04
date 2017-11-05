@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +32,7 @@ public class CardPagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     private LayoutInflater mLayoutInflater;
 
     public CardPagerAdapter(Context c, ArrayList<Card> cards){
+        super();
         this.cards = cards;
 
         this.ctx = c;
@@ -46,21 +48,23 @@ public class CardPagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
 
     @Override
     public Object instantiateItem(ViewGroup container, int position){
-        View view = mLayoutInflater.inflate(R.layout.view_card, container);
+        RelativeLayout view = (RelativeLayout) mLayoutInflater.inflate(R.layout.view_card, null);
 
         Card c = cards.get(position);
+            ImageView image = view.findViewById(R.id.vc_iv_image);
+            TextView title = view.findViewById(R.id.vc_tv_title);
+            TextView text = view.findViewById(R.id.vc_tv_text);
 
-        if(view != null){
-            ImageView image = (ImageView)view.findViewById(R.id.vc_iv_image);
-            TextView title = (TextView)view.findViewById(R.id.vc_tv_title);
-            TextView text = (TextView)view.findViewById(R.id.vc_tv_text);
-
-            Glide.with(view).load(new File(c.getFileDir())).into(image);
+            File file = new File(c.getFileDir());
+            if(file.exists())
+                Glide.with(view).load(new File(c.getFileDir())).into(image);
+            else
+                Glide.with(view).load(R.drawable.white_square).into(image);
             title.setText(c.getTitle());
             text.setText(c.getText());
-        }
 
         views.add(view);
+        container.addView(view);
 
         return view;
     }
@@ -68,6 +72,11 @@ public class CardPagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    @Override
+    public int getItemPosition(Object o){
+        return POSITION_NONE;
     }
 
     public ArrayList<Card> getCards(){
@@ -88,6 +97,12 @@ public class CardPagerAdapter extends PagerAdapter implements ViewPager.OnPageCh
     }
     public void removeCard(){
         cards.remove(currentPosition);
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        RelativeLayout view = (RelativeLayout) object;
+        container.removeView(view);
     }
 
     @Override
