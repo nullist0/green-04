@@ -28,6 +28,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private ArrayAdapter adapter;
     private ListView lv_main;
 
+    public boolean isDeleting;
+
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -38,6 +40,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //액션바 코드
+
         //액션바 타이틀 변경하기
         getSupportActionBar().setTitle(R.string.app_name);
         //홈버튼 표시
@@ -46,6 +49,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         setContentView(R.layout.activity_main);
 
         permissionCheck();
+
+        isDeleting = false;
 
         initVar();
         initView();
@@ -104,8 +109,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         }
         else if (id == R.id.delete) {
             Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
-            deleteProject();
-            return true;
+            if(isDeleting) {
+                deleteProject();
+                return true;
+            }
+            isDeleting = !isDeleting;
         }
         else if (id == R.id.menu1) {
             Intent intent = new Intent(this, DeveloperActivity.class);
@@ -203,9 +211,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Intent intent = new Intent(MainActivity.this,CardActivity.class);
-        intent.putExtra(INTENT_DATA, projects.get(position));
-        startActivity(intent);
+        if(!isDeleting) {
+            Intent intent = new Intent(MainActivity.this, CardActivity.class);
+            intent.putExtra(INTENT_DATA, projects.get(position));
+            startActivity(intent);
+        }
     }
 
     @Override
