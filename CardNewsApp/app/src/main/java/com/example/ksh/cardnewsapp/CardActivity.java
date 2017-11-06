@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ksh.cardnewsapp.adapter.CardPagerAdapter;
 import com.example.ksh.cardnewsapp.data.Card;
 import com.example.ksh.cardnewsapp.data.Project;
@@ -30,6 +31,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class CardActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
@@ -52,6 +55,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
 
     private Project project;
 
+    private Uri target = null;
     private int position = 0;
 
     @Override
@@ -131,8 +135,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
             }
             else if(requestCode == REQUEST_PICK_PICTURE){
                 if(data.getData() != null) {
+                    target = data.getData();
                     Log.d(TAG, data.getData().getPath());
-                    requestCrop(data.getData());
+                    requestCrop(target);
                 }
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
@@ -274,13 +279,19 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
 
     private void requestCrop(Uri uri){
 
-        String destinationFileName = "image"+position;
+        String destinationFileName = "image"+position+".png";
 
         File dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/" + project.getProjectName() + "/images");
+        File file = new File(dir, destinationFileName);
         if(!dir.exists())
-            dir.mkdir();
+            dir.mkdirs();
 
-        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(dir, destinationFileName)));
+        if(file.exists())
+            file.delete();
+
+        Log.d(TAG, uri.getPath());
+
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(file));
 
 //        uCrop = basisConfig(uCrop);
 //        uCrop = advancedConfig(uCrop);
