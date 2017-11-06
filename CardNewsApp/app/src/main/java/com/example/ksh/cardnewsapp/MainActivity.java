@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -41,8 +40,6 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         //액션바 코드
         //액션바 타이틀 변경하기
         getSupportActionBar().setTitle(R.string.app_name);
-        //액션바 배경색 변경
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
         //홈버튼 표시
         //getActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -101,23 +98,21 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         int id = item.getItemId();
 
         if (id == R.id.add) {
-//            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
             addProject();
             return true;
         }
         else if (id == R.id.delete) {
-//            Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
             deleteProject();
             return true;
         }
         else if (id == R.id.menu1) {
-//            Toast.makeText(this, "개발자 정보 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DeveloperActivity.class);
             startActivity(intent);
             return true;
         }
         else if (id == R.id.menu2) {
-//            Toast.makeText(this, "라이센스 정보 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, LicenseActivity.class);
             startActivity(intent);
             return true;
@@ -180,6 +175,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
                 // listview 선택 초기화.
                 lv_main.clearChoices();
+
+                saveProjects();
 
                 // listview 갱신.
                 adapter.notifyDataSetChanged();
