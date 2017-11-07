@@ -108,10 +108,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             return true;
         }
         else if (id == R.id.delete) {
-            Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
             if(isDeleting) {
+                Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
                 deleteProject();
-//                return true;
+                return true;
+            }
+            else{
+                Toast.makeText(this, "삭제할 프로젝트를 선택하세요", Toast.LENGTH_SHORT).show();
             }
             isDeleting = !isDeleting;
             return true;
