@@ -111,9 +111,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
             if(isDeleting) {
                 deleteProject();
-                return true;
+//                return true;
             }
             isDeleting = !isDeleting;
+            return true;
         }
         else if (id == R.id.menu1) {
             Intent intent = new Intent(this, DeveloperActivity.class);
