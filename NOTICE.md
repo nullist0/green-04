@@ -106,3 +106,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+
+ic_action_add; http://g90179.com/
+CC License(CC-BY)
+From:G90179
+License link : http://g90179.com/bbs/page.php?hid=license

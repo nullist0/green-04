@@ -114,6 +114,24 @@
             android:textColor="#000000"/>
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25sp"
+            android:text="이미지 라이센스"
+            android:textSize="20sp"
+            android:textColor="#0000FF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="http://g90179.com/"
+            android:autoLink="web"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/image1"
+            android:textColor="#000000"/>
     </LinearLayout>
 
 
