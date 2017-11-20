@@ -14,9 +14,7 @@ public class DeveloperActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_developers);
-        //액션바 타이틀 변경하기
         getSupportActionBar().setTitle("개발자 정보");
-        //홈버튼 표시
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }

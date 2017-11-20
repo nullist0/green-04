@@ -1,14 +1,10 @@
 package com.example.ksh.cardnewsapp;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -20,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.ksh.cardnewsapp.adapter.CardPagerAdapter;
 import com.example.ksh.cardnewsapp.data.Card;
 import com.example.ksh.cardnewsapp.data.Project;
@@ -29,18 +24,17 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.microedition.khronos.opengles.GL;
 
 public class CardActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
     private static final int REQUEST_PICK_PICTURE = 444;
 
+    //Adapter and ViewPager
     private CardPagerAdapter cpa_main;
     private UltraViewPager uvp_main;
 
+    //Views
     private TextView tv_order;
     private Button bt_image, bt_text, bt_temp;
     private LinearLayout ll_text, ll_temp;
@@ -71,7 +65,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         //initialize from intent
         project = (Project) getIntent().getSerializableExtra(INTENT_DATA);
 
-        //initialize view variables
+        //initialize view variables from Layout
         uvp_main = findViewById(R.id.card_uvp_main);
 
         tv_order = findViewById(R.id.card_tv_order);
@@ -100,10 +94,11 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         uvp_main.setAdapter(cpa_main);
         uvp_main.setOnPageChangeListener(this);
 
-        //uvp_main.initIndicator();
+        //Set to use one screen
+        uvp_main.setMultiScreen(1.0f);
 
-        uvp_main.setMultiScreen(1.0f);//single screen
-        uvp_main.setItemRatio(1.0f);//the aspect ratio of child view equals to 1.0f
+        //Set aspect ratio as 1:1
+        uvp_main.setItemRatio(1.0f);
         uvp_main.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
         uvp_main.setAutoMeasureHeight(true);
 
@@ -132,8 +127,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
                     cpa_main.getCard(position).setFileDir(resultUri.getPath());
                     cpa_main.notifyDataSetChanged();
                 }
-            }
-            else if(requestCode == REQUEST_PICK_PICTURE){
+            } else if(requestCode == REQUEST_PICK_PICTURE){
                 if(data.getData() != null) {
                     target = data.getData();
                     Log.d(TAG, data.getData().getPath());
@@ -142,7 +136,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
-            cropError.printStackTrace();
+            if (cropError != null) {
+                cropError.printStackTrace();
+            }
         }
     }
 
@@ -194,7 +190,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.card_bt_temp1:
                 cpa_main.getCard(position).setTemplate(0);
-                cpa_main.notifyDataSetChanged(); //TODO
+                cpa_main.notifyDataSetChanged();
                 break;
         }
     }
@@ -260,7 +256,6 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
 
         for(int i = 0; i < project.getCards().size(); i++){
             View v = cpa_main.getView(i);
-            //Layout_to_Image lti = new Layout_to_Image(this, v);
             Log.d(TAG, i+" : "+v.getHeight() +"x" + v.getWidth());
             files.add(saveBitmap(loadBitmapFromView(v), i));
         }
@@ -283,20 +278,20 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
 
         File dir = new File(getExternalFilesDir(null).getAbsolutePath() + "/" + project.getProjectName() + "/images");
         File file = new File(dir, destinationFileName);
-        if(!dir.exists())
+        if(!dir.exists()) {
             dir.mkdirs();
+        }
 
-        if(file.exists())
+        if(file.exists()) {
             file.delete();
+        }
 
         Log.d(TAG, uri.getPath());
 
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(file));
 
-//        uCrop = basisConfig(uCrop);
-//        uCrop = advancedConfig(uCrop);
+        //Set aspect ratio 1:1
         uCrop = uCrop.withAspectRatio(1, 1);
-
         uCrop.start(CardActivity.this);
     }
 
@@ -304,11 +299,15 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         String file_path = getExternalFilesDir(null).getAbsolutePath() +
                 "/" + project.getProjectName() + "/cards";
         Log.d(TAG, file_path);
+
         File dir = new File(file_path);
-        if(!dir.exists())
+        if(!dir.exists()) {
             dir.mkdirs();
+        }
+
         File file = new File(dir, i+".png");
         FileOutputStream fos = null;
+
         try {
             fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 85, fos);

@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:title="개발자정보"
-        android:id="@+id/menu1"
+        android:id="@+id/mm_developer"
         app:showAsAction="withText" />
 
     <item android:title="라이센스"
-        android:id="@+id/menu2"
+        android:id="@+id/mm_license"
         app:showAsAction="withText" />
 
     <item android:title="프로젝트추가"
-        android:id="@+id/add"
+        android:id="@+id/mm_add"
         app:showAsAction="always"
         android:icon="@drawable/ic_action_add"/>
 
     <item android:title="프로젝트삭제"
-        android:id="@+id/delete"
+        android:id="@+id/mm_delete"
         app:showAsAction="always"
         android:icon="@drawable/ic_action_delete"/>
 

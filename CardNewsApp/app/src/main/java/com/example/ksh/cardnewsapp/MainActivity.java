@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private ArrayAdapter adapter;
     private ListView lv_main;
 
-    public boolean isDeleting;
+    private boolean isDeleting;
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -39,36 +39,26 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //액션바 코드
-
-        //액션바 타이틀 변경하기
         getSupportActionBar().setTitle(R.string.app_name);
-        //홈버튼 표시
-        //getActionBar().setDisplayHomeAsUpEnabled(false);
 
         setContentView(R.layout.activity_main);
 
         permissionCheck();
-
-        isDeleting = false;
-
         initVar();
         initView();
-    }//End of onCreate
+    }
 
     private void initVar(){
         loadProjects();
         items = new ArrayList<>();
 
+        isDeleting = false;
+
         for(Project p : projects)
             items.add(p.getProjectName());
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, items);
 
-        // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, items);
-
-        // listview 생성 및 adapter 지정.
         lv_main = findViewById(R.id.mainlistview);
-
     }
 
     private void initView(){
@@ -77,10 +67,6 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void permissionCheck(){
-
-        //권한 체크(permission check)
-
-        // 권한을 획득하기전에 현재 Acivity에서 지정된 권한을 사용할 수 있는지 여부 체크
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -90,24 +76,22 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         }
     }
 
-    //액션버튼 메뉴 액션바에 집어 넣기
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu1, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-    //액션버튼을 클릭했을때의 동작
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.add) {
+        if (id == R.id.mm_add) {
             Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
             addProject();
             return true;
         }
-        else if (id == R.id.delete) {
+        else if (id == R.id.mm_delete) {
             if(isDeleting) {
                 Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
                 deleteProject();
@@ -119,12 +103,12 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
             isDeleting = !isDeleting;
             return true;
         }
-        else if (id == R.id.menu1) {
+        else if (id == R.id.mm_developer) {
             Intent intent = new Intent(this, DeveloperActivity.class);
             startActivity(intent);
             return true;
         }
-        else if (id == R.id.menu2) {
+        else if (id == R.id.mm_license) {
             Intent intent = new Intent(this, LicenseActivity.class);
             startActivity(intent);
             return true;
@@ -134,7 +118,6 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     public void addProject() {
-        //팝업창->이름결정
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
         alert.setTitle("제목");
@@ -154,21 +137,17 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         });
 
         alert.setView(name);
-        //팝업창 클릭버튼
         alert.setPositiveButton("결정", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                // 아이템 추가.
                 items.add(String.valueOf(name.getText()));
                 projects.add(new Project(name.getText().toString()));
 
                 saveProjects();
 
-                // listview 갱신
                 adapter.notifyDataSetChanged();
             }
         });
-        //팝업창 보이기
         alert.show();
     }
 
@@ -177,20 +156,16 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         count = adapter.getCount();
 
         if (count > 0) {
-            // 현재 선택된 아이템의 position 획득.
             checked = lv_main.getCheckedItemPosition();
 
             if (checked > -1 && checked < count) {
-                // 아이템 삭제
                 projects.remove(checked);
                 items.remove(checked);
 
-                // listview 선택 초기화.
                 lv_main.clearChoices();
 
                 saveProjects();
 
-                // listview 갱신.
                 adapter.notifyDataSetChanged();
             }
         }

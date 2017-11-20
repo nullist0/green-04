@@ -14,9 +14,7 @@ public class LicenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_license);
-        //액션바 타이틀 변경하기
         getSupportActionBar().setTitle("라이센스 정보");
-        //홈버튼 표시
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }

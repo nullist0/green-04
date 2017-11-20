@@ -117,7 +117,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="이미지 라이센스"
+            android:text="Image License"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
