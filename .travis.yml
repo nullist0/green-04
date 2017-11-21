@@ -20,4 +20,6 @@ before_script:
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
 
-script: ./CardNewsApp/gradlew build connectedCheck
+script: 
+    - ./CardNewsApp/gradlew tasks
+    - ./CardNewsApp/gradlew installDebug

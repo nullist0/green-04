@@ -1,4 +1,5 @@
 # CardNewsApp
+[![Build Status](https://api.travis-ci.org/Lee-Null/green-04.svg?branch=master)](https://www.travis-ci.org/Lee-Null/green-04/)
 -----
 This repository is a OpenSource SW Basic project.
 
