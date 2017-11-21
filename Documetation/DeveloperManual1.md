@@ -3,10 +3,11 @@
 
 ## Bulid Environment
 
-### Android Studio
+### IDE and OS
 ```
-- Version : 3.0
-- OS : Ubuntu
+- IDE : Android Studio
+- IDE Version : 3.0
+- OS : Ubuntu 14.04 LTS
 ```
 
 ### SDK version
