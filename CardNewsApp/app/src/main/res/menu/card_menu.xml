@@ -6,19 +6,19 @@
     <item
         android:id="@+id/cm_delete"
         app:showAsAction="always"
-        android:title="삭제"/>
+        android:title="@string/menu_card_delete"/>
     <item
         android:id="@+id/cm_add"
         app:showAsAction="always"
-        android:title="추가"/>
+        android:title="@string/menu_card_add"/>
     <item
         android:id="@+id/cm_save"
         app:showAsAction="always"
-        android:title="저장"/>
+        android:title="@string/menu_card_save"/>
     <item
         android:id="@+id/cm_share"
         app:showAsAction="always"
-        android:title="공유"/>
+        android:title="@string/menu_card_share"/>
 
 
 </menu>

@@ -44,7 +44,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
     private Button bt_confirm_text;
 
     //ll_temp
-    private Button bt_temparary; //For prototype
+    private Button bt_template1; //For prototype
     private Button bt_confirm_temp;
 
     private Project project;
@@ -80,7 +80,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         et_text = findViewById(R.id.card_et_text);
         et_title = findViewById(R.id.card_et_title);
 
-        bt_temparary = findViewById(R.id.card_bt_temp1);
+        bt_template1 = findViewById(R.id.card_bt_temp1);
 
         bt_confirm_temp = findViewById(R.id.card_bt_confirm_temp);
         bt_confirm_text = findViewById(R.id.card_bt_confirm_text);
@@ -103,14 +103,14 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         uvp_main.setAutoMeasureHeight(true);
 
         //initialize text
-        tv_order.setText((position+1)+ "번째 카드");
+        tv_order.setText(getString(R.string.card_count, position+1));
 
         //initialize buttons
         bt_image.setOnClickListener(this);
         bt_text.setOnClickListener(this);
         bt_temp.setOnClickListener(this);
 
-        bt_temparary.setOnClickListener(this);
+        bt_template1.setOnClickListener(this);
 
         bt_confirm_text.setOnClickListener(this);
         bt_confirm_temp.setOnClickListener(this);
@@ -142,7 +142,6 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    //액션버튼 메뉴 액션바에 집어 넣기
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.card_menu, menu);
@@ -344,7 +343,7 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onPageSelected(int position) {
         this.position = position;
-        tv_order.setText((position+1)+"번째 카드");
+        tv_order.setText(getString(R.string.card_count, position+1));
     }
 
     @Override

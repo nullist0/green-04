@@ -2,10 +2,6 @@ package com.example.ksh.cardnewsapp.data;
 
 import java.io.Serializable;
 
-/**
- * Created by leepyoungwon on 17. 11. 1.
- */
-
 public class Card implements Serializable{
     private int template;
     private String title, text;

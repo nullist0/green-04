@@ -12,81 +12,63 @@
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="한양대학교ERICA캠퍼스"
-        android:id="@+id/school"
         android:textSize="20sp"
-        android:textColor="#0000FF"
-        />
+        android:textColor="#0000FF"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="소프트웨어학부"
-        android:id="@+id/part"
         android:textSize="20sp"
-        android:textColor="#0000FF"
-        />
+        android:textColor="#0000FF"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="오픈소스 프로젝트(GREEN-04)"
-        android:id="@+id/project"
         android:textSize="20sp"
-        android:textColor="#0000FF"
-        />
+        android:textColor="#0000FF"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text=""
-        android:id="@+id/empty"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="김승현(SeunghyunKing)"
-        android:id="@+id/name1"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="문성인(Ramenseller)"
-        android:id="@+id/name2"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000"/>
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="민준경(jun98221@naver.com)"
-        android:id="@+id/name3"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="이규민(gyumin97)"
-        android:id="@+id/name4"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"
         android:text="이평원(Lee-Null)"
-        android:id="@+id/name5"
         android:textSize="20sp"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000" />
 </LinearLayout>

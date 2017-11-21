@@ -87,18 +87,18 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         int id = item.getItemId();
 
         if (id == R.id.mm_add) {
-            Toast.makeText(this, "프로젝트 추가", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.menu_main_add, Toast.LENGTH_SHORT).show();
             addProject();
             return true;
         }
         else if (id == R.id.mm_delete) {
             if(isDeleting) {
-                Toast.makeText(this, "프로젝트 삭제", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.menu_main_delete, Toast.LENGTH_SHORT).show();
                 deleteProject();
                 return true;
             }
             else{
-                Toast.makeText(this, "삭제할 프로젝트를 선택하세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Choose a project to delete.", Toast.LENGTH_SHORT).show();
             }
             isDeleting = !isDeleting;
             return true;
@@ -120,8 +120,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     public void addProject() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
-        alert.setTitle("제목");
-        alert.setMessage("카드뉴스 제목을 입력하세요");
+        alert.setTitle("Title");
+        alert.setMessage("Enter the name of project.");
 
         final EditText name = new EditText(this);
 
@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         });
 
         alert.setView(name);
-        alert.setPositiveButton("결정", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
                 items.add(String.valueOf(name.getText()));

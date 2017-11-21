@@ -8,129 +8,129 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="Glide"
+            android:text="@string/license_name_glide"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://github.com/bumptech/glide"
+            android:text="@string/license_link_glide"
             android:autoLink="web"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/glide"
+            android:text="@string/license_content_glide"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/disklrucache"
+            android:text="@string/license_content_disklrucache"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/gif_decoder"
+            android:text="@string/license_content_gif_decoder"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/gif_encoder1"
+            android:text="@string/license_content_gif_encoder1"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/gif_encoder2"
+            android:text="@string/license_content_gif_encoder2"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="uCrop"
+            android:text="@string/license_name_ucrop"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://github.com/Yalantis/uCrop"
+            android:text="@string/license_link_ucrop"
             android:autoLink="web"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ucrop"
+            android:text="@string/license_content_ucrop"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="UltraViewpager"
+            android:text="@string/license_name_ultraviewpager"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://github.com/alibaba/UltraViewPager"
+            android:text="@string/license_link_ultraviewpager"
             android:autoLink="web"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ultraview"
+            android:text="@string/license_content_ultraviewpager"
             android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="Fastjson"
+            android:text="@string/license_name_fastjson"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://github.com/alibaba/fastjson"
+            android:text="@string/license_link_fastjson"
             android:autoLink="web"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fastjson"
+            android:text="@string/license_content_fastjson"
             android:textColor="#000000"/>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25sp"
-            android:text="Image License"
+            android:text="@string/license_name_image"
             android:textSize="20sp"
             android:textColor="#0000FF"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="http://g90179.com/"
+            android:text="@string/license_link_image"
             android:autoLink="web"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/image1"
+            android:text="@string/license_content_image"
             android:textColor="#000000"/>
     </LinearLayout>
 

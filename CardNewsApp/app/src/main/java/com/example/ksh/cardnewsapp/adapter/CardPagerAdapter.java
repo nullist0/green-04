@@ -1,10 +1,7 @@
 package com.example.ksh.cardnewsapp.adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.example.ksh.cardnewsapp.R;
 import com.example.ksh.cardnewsapp.data.Card;
 
@@ -120,6 +116,5 @@ public class CardPagerAdapter extends PagerAdapter{
     @Override
     public void notifyDataSetChanged(){
         super.notifyDataSetChanged();
-        Log.d("CPA TAG", "CHANGE CALLED");
     }
 }
