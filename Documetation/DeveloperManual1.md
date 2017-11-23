@@ -29,6 +29,7 @@
 - Primitive Variables and non-Widget Objects : Snake Casing
 - Widget Objects : Snake Casing With Shorten Class Name
 - Method : Camel Casing
+- Parameters in Method : Camel Casing
 ```
 
 - Indentation
@@ -44,6 +45,19 @@
 - Contents : Description, Paramters, Returns.
 ```
 
+- Examples
+```java
+private TextView tv_text;
+private int positionX, positionY;
+//...some task...
+
+private void printText(int x, int y, String printToText){
+	positionX = x;
+	positionY = y;
+	tv_text.setText(positionX + ", "+ positionY + ":" + printToText);
+}
+```
+
 ### 2.2. In Layout file
 
 - Naming Widget IDs
@@ -55,7 +69,7 @@
 - Indentation
 Indentation is formed like following.
 ```
--
+
 ```
 
 - Comments
@@ -64,6 +78,8 @@ Indentation is formed like following.
 - Contents : Text which represents following contents.
 ```
 
+- Examples
+
 ### 2.3. In Value file
 
 - Naming Value IDs
@@ -71,6 +87,8 @@ Indentation is formed like following.
 - Indentation
 
 - Comments
+
+- Examples
 
 ## 3. Contributing
 
