@@ -48,6 +48,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         initView();
     }
 
+    /**
+     * Initialize Variables and Objects.
+     */
     private void initVar(){
         loadProjects();
         items = new ArrayList<>();
@@ -61,11 +64,18 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         lv_main = findViewById(R.id.mainlistview);
     }
 
+    /**
+     * Initialize View Settings.
+     */
     private void initView(){
         lv_main.setAdapter(adapter);
         lv_main.setOnItemClickListener(this);
     }
 
+    /**
+     * This method check permissions and request users to allow permissions.\n
+     * Request Permissions : READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE.
+     */
     private void permissionCheck(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -117,6 +127,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Adds a Card News Project by AlertDialog
+     */
     public void addProject() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
@@ -151,6 +164,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         alert.show();
     }
 
+    /**
+     * Delete a Card News Project by RadioButton in ListView
+     */
     public void deleteProject() {
         int count, checked;
         count = adapter.getCount();
