@@ -21,6 +21,9 @@ public class BaseActivity extends AppCompatActivity {
 
     protected ArrayList<Project> projects;
 
+    /**
+     * Load Card News Projects from SharedPreferences in Json via FastJson
+     */
     protected void loadProjects(){
         projects = new ArrayList<>();
 
@@ -37,6 +40,9 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Save Card News Projects into SharedPreferences in Json via FastJson
+     */
     protected void saveProjects(){
         SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -52,6 +58,10 @@ public class BaseActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Save a Card News Project into SharedPreferences in Json via FastJson
+     * @param p is a Project Object to save.
+     */
     protected void saveProject(Project p){
         SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();

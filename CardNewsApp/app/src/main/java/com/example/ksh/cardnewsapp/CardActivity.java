@@ -61,6 +61,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         initView();
     }
 
+    /**
+     * Initialize Variables and Objects.
+     */
     private void initVar(){
         //initialize from intent
         project = (Project) getIntent().getSerializableExtra(INTENT_DATA);
@@ -89,6 +92,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         cpa_main = new CardPagerAdapter(getApplicationContext(), project.getCards());
     }
 
+    /**
+     * Initialize View Settings.
+     */
     private void initView(){
         //Setting uvp_main
         uvp_main.setAdapter(cpa_main);
@@ -194,20 +200,32 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
+    /**
+     * Delete a Card to Project in current position.
+     */
     private void deleteCard(){
         cpa_main.removeCard(position);
         cpa_main.notifyDataSetChanged();
     }
 
+    /**
+     * Add a Card to Project in current position.
+     */
     private void addCard(){
         cpa_main.addCard(position);
         cpa_main.notifyDataSetChanged();
     }
 
+    /**
+     * Request to pick and crop image to add to current card.
+     */
     private void requestImage(){
         requestPick();
     }
 
+    /**
+     * Open Text Control which changes card Texts.
+     */
     private void openTextControl(){
         ll_text.setVisibility(View.VISIBLE);
 
@@ -215,10 +233,16 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         et_text.setText(cpa_main.getCard(position).getText());
     }
 
+    /**
+     * Open Template Control which changes Template status.
+     */
     private void openTemplateControl(){
         ll_temp.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Close Text Control which changes card Texts.
+     */
     private void closeTextControl() {
         ll_text.setVisibility(View.GONE);
 
@@ -232,16 +256,25 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         cpa_main.notifyDataSetChanged();
     }
 
+    /**
+     * Close Template Control which changes Template status.
+     */
     private void closeTemplateControl(){
         ll_temp.setVisibility(View.GONE);
         cpa_main.notifyDataSetChanged();
     }
 
+    /**
+     * Request to save current project status.
+     */
     private void requestSave(){
         project.setCards(cpa_main.getCards());
         saveProject(project);
     }
 
+    /**
+     * Request to share cards.
+     */
     private void requestShare(){
         requestSave();
 
@@ -263,6 +296,9 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         startActivity(share);
     }
 
+    /**
+     * Request to pick an image to add in card from gallery.
+     */
     private void requestPick(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -271,6 +307,10 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         startActivityForResult(Intent.createChooser(intent, "Choose Image"), REQUEST_PICK_PICTURE);
     }
 
+    /**
+     * Request a crop given image via uCrop
+     * @param uri is Uri of image file to crop.
+     */
     private void requestCrop(Uri uri){
 
         String destinationFileName = "image"+position+".png";
@@ -294,6 +334,12 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
         uCrop.start(CardActivity.this);
     }
 
+    /**
+     * Save a card data(Bitmap) from project with its position.
+     * @param bitmap is a Bitmap Object which is created by loadBitmapFromView(View).
+     * @param i is position of that card.
+     * @return an Uri Object has saved file data.
+     */
     private Uri saveBitmap(Bitmap bitmap, int i){
         String file_path = getExternalFilesDir(null).getAbsolutePath() +
                 "/" + project.getProjectName() + "/cards";
@@ -326,6 +372,11 @@ public class CardActivity extends BaseActivity implements View.OnClickListener, 
                         + ".my.package.name.provider", file);
     }
 
+    /**
+     * Convert View(v) to Bitmap by Canvas
+     * @param v is View Object to convert
+     * @return a Bitmap Object same as v.
+     */
     private Bitmap loadBitmapFromView(View v){
         Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
 
