@@ -1,1 +1,1 @@
-# Making CardNews.
+Push the pencil button to create a cardnews project

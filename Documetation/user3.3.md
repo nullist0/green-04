@@ -1,1 +1,1 @@
-# Sharing CardNews.
+You can check the developer information and license by clicking the stick button above.

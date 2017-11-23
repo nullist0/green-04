@@ -1,1 +1,1 @@
-# Making CardNews.
+Press the X button to delete the card news project.

@@ -1,1 +1,1 @@
-# Saving/Loading CardNews data.
+Push delete button.
