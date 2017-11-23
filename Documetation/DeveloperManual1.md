@@ -51,6 +51,12 @@ private TextView tv_text;
 private int positionX, positionY;
 //...some task...
 
+/**
+  * Set Text in TextView to "x, y : printToText"
+  * @param x is value of x-axis.
+  * @param y is value of y-axis.
+  * @param printToText is text to print in TextView
+  */
 private void printText(int x, int y, String printToText){
 	positionX = x;
 	positionY = y;
