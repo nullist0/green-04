@@ -12,8 +12,8 @@ This repository is a OpenSource SW Basic project.
 You can read about User Manual in Documetation folder.
 
 ## License
-We used OpenSource Softwares, so noticed licenses of softwares in NOTICE.md.  
-And our software is licensed by Apache 2.0. (more information, LICENSE.md).
+We used OpenSource Softwares, so noticed licenses of softwares in NOTICE.  
+And our software is licensed by Apache 2.0. (more information, LICENSE).
 
 ## Development
 You can read about Development Manual in Documentation folder.
