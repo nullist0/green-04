@@ -21,7 +21,7 @@
 
 ## 2. Code Convention
 
-### 2.1. In Java
+### 2.1. In Java file
 
 - Naming Variables
 
@@ -32,9 +32,45 @@
 ```
 
 - Indentation
+
 ```
 - K&R Indent Style
 ```
+
+- Comments
+
+```
+- Defualt : Must put Comment at Not-Overrided Methods.
+- Contents : Description, Paramters, Returns.
+```
+
+### 2.2. In Layout file
+
+- Naming Widget IDs
+```
+- Casing : Snake Casing
+- Form : (Activity Name)_(Shorten Class Name)_(Feature)
+```
+
+- Indentation
+Indentation is formed like following.
+```
+-
+```
+
+- Comments
+```
+- Defualt : Put Comments if the content changes between above and below.
+- Contents : Text which represents following contents.
+```
+
+### 2.3. In Value file
+
+- Naming Value IDs
+
+- Indentation
+
+- Comments
 
 ## 3. Contributing
 
