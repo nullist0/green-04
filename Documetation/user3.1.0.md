@@ -6,7 +6,7 @@
 
 
 
-|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/pencil.png" width="280">|Write the project name.|
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/pencil.png" width="280">|Write the project name.                               |
 |:-------------|:--------------:|
 
 
