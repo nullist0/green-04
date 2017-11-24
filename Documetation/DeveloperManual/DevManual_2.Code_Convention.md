@@ -120,3 +120,4 @@ So, following is same as Layout.
     <string name="card_template">Template</string>
 </resources>
 ```
+
