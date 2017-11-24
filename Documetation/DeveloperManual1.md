@@ -126,9 +126,10 @@ So, following is same as Layout.
 
 ```xml
 <resources>
-    <!-- CardActivity -->
+	<!-- CardActivity -->
 	<!-- View Strings -->
 	<string name="card_count">%1$d th card</string>
+	
 	<!-- Process Strings -->
 	<string name="card_image">Image</string>
 	<string name="card_text">Text</string>
