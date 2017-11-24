@@ -15,3 +15,5 @@ Write the project name.
 
 
 <img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/create%20cardnews.png">
+
+{: .text-center }
