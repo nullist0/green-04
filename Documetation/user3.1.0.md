@@ -6,11 +6,9 @@
 
 
 
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/pencil.png">
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/pencil.png">|Write the project name.|
+|:-------------|:--------------:|
 
 
-Write the project name.
-
-
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/create%20cardnews.png">
-
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/create%20cardnews.png">|
+|:--------------:|
