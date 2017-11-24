@@ -1,1 +1,0 @@
-# Saving/Loading CardNews data.
