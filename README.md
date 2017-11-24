@@ -11,9 +11,9 @@ This repository is a OpenSource SW Basic project.
 ## For User
 You can read about User Manual in Documetation folder.
 
+## For Development
+You can read about Development Manual in Documentation folder.
+
 ## License
 We used OpenSource Softwares, so noticed licenses of softwares in NOTICE.  
 And our software is licensed by Apache 2.0. (more information, LICENSE).
-
-## Development
-You can read about Development Manual in Documentation folder.
