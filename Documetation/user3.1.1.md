@@ -23,19 +23,15 @@ Push the save button and back.
 Push the image button.
 
 
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/edit%20photo.png" width="280">
-
-
-You can edit the image if you want.
-
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/edit%20photo.png" width="280">|You can edit the image if you want.|
+|:-------------:|:--------------:|
 
 
 
-Put one image on one page, press save button and back.
 
 
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20image.png" width="280">
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20another%20image.png" width="280">
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20image.png" width="280">|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20another%20image.png" width="280">|Put one image on one page, press save button and back.
 
-Put one image on one page, press save button and back.
-Repeat this operation for each page
+
+Repeat this operation for each page|
+|:-------------:|:--------------:|
