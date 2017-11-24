@@ -30,5 +30,8 @@ Push the image button.
 
 
 
-|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20image.png" width="280">|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20another%20image.png" width="280">|Put one image on one page, press save button and back. Repeat this operation for each page|
-|:-------------:|:--------------:|
+|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20image.png" width="280">|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/saved%20another%20image.png" width="280">|Put one image on one page, press save button and back.
+
+
+Repeat this operation for each page.|
+|:-------------:|:--------------:|:----:|
