@@ -80,7 +80,7 @@ Indentation is formed like in examples.
         android:id="@+id/main_tv_hello"
         android:text="@string/hello"/>
 </LinearLayout>
-									```
+```
 
 ### 2.3. In Value file
 
