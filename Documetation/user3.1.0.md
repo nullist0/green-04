@@ -1,4 +1,4 @@
-<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/main.png" width="200"> | Push the pencil button to create a cardnews project.
+|:<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/main.png" width="200">|:Push the pencil button to create a cardnews project.:|
 
 
 
@@ -13,4 +13,3 @@ Write the project name.
 
 <img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/create%20cardnews.png">
 
-{: .text-center }
