@@ -30,4 +30,4 @@
 ## [Appendix](https://github.com/Lee-Null/green-04/blob/master/Documetation/DeveloperManual/DevManual_Appendix.md)
 Appendix A. Casing  
 Appendix B. Shorten Class Name  
-Appendix C. K&R Indent Style  
+Appendix C. Our Indent Style  
