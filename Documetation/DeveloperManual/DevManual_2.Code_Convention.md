@@ -14,7 +14,7 @@
 - Indentation
 
 ```
-- K&R Indent Style
+- Indent Style : See Example in Appendix.C.
 - Defualt Space : 4 spaces
 ```
 
