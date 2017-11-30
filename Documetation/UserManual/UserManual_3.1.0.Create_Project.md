@@ -1,4 +1,4 @@
-|<img src = "https://github.com/Lee-Null/green-04/blob/master/Documetation/images/main.png" width="280" height="200">|Push the pencil button to create a cardnews project.|
+|<img src = "https://raw.githubusercontent.com/Lee-Null/green-04/master/Documetation/images/main.png" width="280">|Push the pencil button to create a cardnews project.|
 |:-------------|:--------------:|
 
 
