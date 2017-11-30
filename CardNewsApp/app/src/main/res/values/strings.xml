@@ -31,6 +31,7 @@
 
     <!-- LicenseActivity -->
     <!-- License Name Strings -->
+    <string name="license_name_cnm">CNM</string>
     <string name="license_name_glide">Glide</string>
     <string name="license_name_fastjson">FastJson</string>
     <string name="license_name_ultraviewpager">UltraViewPager</string>
@@ -38,6 +39,7 @@
     <string name="license_name_image">Image License</string>
 
     <!-- License Link Strings -->
+    <string name="license_link_cnm">https://github.com/Lee-Null/green-04</string>
     <string name="license_link_glide">https://github.com/bumptech/glide</string>
     <string name="license_link_fastjson">https://github.com/alibaba/fastjson</string>
     <string name="license_link_ultraviewpager">https://github.com/alibaba/UltraViewPager</string>
@@ -45,6 +47,19 @@
     <string name="license_link_image">http://g90179.com/</string>
 
     <!-- License Content Strings -->
+    <string name="license_content_cnm">Copyright 2017 green-04\n
+        Licensed under the Apache License, Version 2.0 (the "License");\n
+        you may not use this file except in compliance with the License.\n
+        You may obtain a copy of the License at\n\n
+
+            http://www.apache.org/licenses/LICENSE-2.0\n\n
+
+        Unless required by applicable law or agreed to in writing, software\n
+        distributed under the License is distributed on an "AS IS" BASIS,\n
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
+        See the License for the specific language governing permissions and\n
+        limitations under the License.\n
+    </string>
     <string name="license_content_glide">BSD, part MIT and Apache-2.0.\n
         License for everything not in third_party and not otherwise marked:\n
         Copyright 2014 Google, Inc. All rights reserved.\n

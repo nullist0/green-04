@@ -2,7 +2,7 @@
 
 ## 1. [Bulid Environment](https://github.com/Lee-Null/green-04/blob/master/Documetation/DeveloperManual/DevManual_1.Build_Environment.md)
 
-1.1. IDE and OS
+1.1. IDE and OS  
 1.2. SDK version
 
 ## 2. [Code Convention](https://github.com/Lee-Null/green-04/blob/master/Documetation/DeveloperManual/DevManual_2.Code_Convention.md)

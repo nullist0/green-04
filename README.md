@@ -14,10 +14,14 @@ Example : [Card News Example](http://news.naver.com/main/hotissue/read.nhn?mid=h
 - Making Card News.
 - Sharing Card News.
 
-## For User
+## Manuals
+You can read about User Manual & Developer Manual in [GitBook](https://www.gitbook.com/book/lee-null/cardnewsappmanual/details).  
+If see this in github, please see following links.
+
+### For User
 You can read about User Manual in [HERE](https://github.com/Lee-Null/green-04/blob/master/USER_MANUAL.md).
 
-## For Development
+### For Development
 You can read about Development Manual in [HERE](https://github.com/Lee-Null/green-04/blob/master/DEV_MANUAL.md).
 
 ## License
