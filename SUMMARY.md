@@ -15,3 +15,11 @@
     * [3.2. Delete project](Documetation/UserManual/UserManual_3.2_Delete_Project.md)
     * [3.3. Developers, license](Documetation/UserManual/UserManual_3.3_Developers,License.md)
 
+* Developer Manual
+  * [Documetation/DeveloperManual/DevManual\_1.Build\_Environment.md](Documetation/DeveloperManual/DevManual_1.Build_Environment.md)
+  * [Documetation/DeveloperManual/DevManual\_2.Code\_Convention.md](Documetation/DeveloperManual/DevManual_2.Code_Convention.md)
+  * [Documetation/DeveloperManual/DevManual\_3.Contributing.md](Documetation/DeveloperManual/DevManual_3.Contributing.md)
+  * [Documetation/DeveloperManual/DevManual\_Appendix.md](Documetation/DeveloperManual/DevManual_Appendix.md)
+
+
+
