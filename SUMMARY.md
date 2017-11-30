@@ -8,7 +8,6 @@
     * How to make a Card News
       * [Documetation/UserManual/UserManual\_3.1.0.Create\_Project.md](Documetation/UserManual/UserManual_3.1.0.Create_Project.md)
       * [Documetation/UserManual/UserManual\_3.1.1.Create\_Card\_News.md](Documetation/UserManual/UserManual_3.1.1.Create_Card_News.md)
-* Developer Manual
 
 
 
