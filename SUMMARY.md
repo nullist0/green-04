@@ -4,7 +4,7 @@
 * [User Manual](user-manual.md)
   * [1. Outline](Documetation/UserManual/UserManual_1.Outline.md)
   * [2. Features](Documetation/UserManual/UserManual_2.Features.md)
-  * 3. Directions
+  * [3. Directions](Documetation/UserManual/directions.md)
     * [3.1. How to make a Card News](Documetation/UserManual/directions/how-to-make-a-card-news.md)
       * [3.1.0. Create project](Documetation/UserManual/UserManual_3.1.0.Create_Project.md)
       * [3.1.1. Create Card News](Documetation/UserManual/UserManual_3.1.1.Create_Card_News.md)
