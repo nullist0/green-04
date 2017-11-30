@@ -73,6 +73,6 @@ private int foo(){
     else{
         ...
     }
-	return value;
+    return value;
 }
 ```
